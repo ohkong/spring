@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  /WEB-INF/decorators.xml -->
+<decorators defaultdir="/layout">
+	<decorator name="main" page="boardlayout.jsp">
+		<pattern>*.shop</pattern>
+	</decorator>
+	<decorator name="user" page="userlayout.jsp">
+		<pattern>/user/*.shop</pattern>
+		<pattern>/admin/*.shop</pattern>
+	</decorator>
+	<!-- sitemesh의 layout 설정 안함 -->
+	<excludes>
+		<pattern>/user/id*</pattern>
+		<pattern>/user/pw*</pattern>
+		<pattern>/user/search</pattern>
+		<pattern>/board/imgupload*</pattern>
+		<pattern>/ajax/*</pattern>
+	</excludes>
+</decorators>
