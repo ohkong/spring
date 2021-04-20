@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  /WEB-INF/decorators.xml -->
+
+<decorators defaultdir="/layout">
+	<decorator name = "main" page="layout.jsp">
+		<pattern>*.shop</pattern>
+	</decorator>
+	<!-- sitemesh의 layout 설정 안함 -->
+	<excludes>
+		<pattern>/cal/calupdate*</pattern>
+		<pattern>/user/emailcheck*</pattern>
+		<pattern>/nutrition/add*</pattern>
+		<pattern>/user/idsearch*</pattern>
+		<pattern>/user/pwsearch*</pattern>
+		<pattern>/ajax/mone*</pattern>
+	</excludes>
+</decorators>
+
