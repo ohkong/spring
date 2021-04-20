@@ -1,0 +1,30 @@
+p1.txt 파일입니다. javasecurity 프로젝트 폴더에 만드십시오.
+private static void getKey(String key) throws Exception{
+		Key genkey = new SecretKeySpec(makeKey(key), "AES");
+		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("key.ser"));
+		out.writeObject(genkey);
+		out.flush(); out.close();
+	}
+	
+	public static void decryptFile(String cipherFile, String plainFile) {
+		try {
+			ObjectInputStream ois = 
+					new ObjectInputStream(new FileInputStream("key.ser"));
+			Key key = (Key) ois.readObject();
+			ois.close();
+			AlgorithmParameterSpec paramSpec = new IvParameterSpec(iv);
+			cipher.init(Cipher.DECRYPT_MODE, key, paramSpec);
+			FileInputStream fis = new FileInputStream(cipherFile);
+			FileOutputStream fos = new FileOutputStream(plainFile);
+			CipherOutputStream cos = new CipherOutputStream(fos, cipher);
+			byte[] buf = new byte[1024];
+			int len;
+			while((len = fis.read(buf)) != -1) {
+				cos.write(buf, 0, len);//복호화된 내요으로 저장
+			}
+			fis.close(); cos.flush(); fos.flush();
+			cos.close(); fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
