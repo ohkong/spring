@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /src/main/java/applicationContext.xml-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- id="greeter" : 유일한 id 값. 객체의 구분 id.
+	chap1.Greeter 객체를 greeter 이름으로 저장-->
+<bean id="greeter" class="chap1.Greeter">
+<!-- set 프로퍼티 : chap1.Greeter 클래스의 setFormat메서드 -->
+	<property name="format" value="%s을 배웁니다"/>
+</bean>
+<bean id="message" class="chap1.MessageEn" />
+</beans>
