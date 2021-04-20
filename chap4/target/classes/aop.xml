@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /src/main/java/aop.xml -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+<bean id="write" class="spring.WriteImpl">
+	<constructor-arg><ref bean="articleDao"/></constructor-arg>
+</bean>	
+
+<bean id="articleDao" class="spring.MariadbArticleDao"/>
+<bean id="logging" class="spring.LoggingAspect"/>
+<!-- aop설정 
+	pointcut : 핵심메서드를 설정
+		public * spring.*Impl.*(..) : spring 패키지의 클래스 중 이름이 Impl로 끝나는 
+								클래스의 모든 public 메섣. 매개변수에 상관없이.
+	aspect : aop에 사용되는 Aspect클래스 의미
+	advice : aop가 실행될 시점을 설정
+		around : 핵심 메서드 실행 전과 후에 aop를 실행
+		before : 핵심 메서드 실행 전에 aop를 실행
+		after : 핵심 메서드 실행 후에 aop를 실행
+		afterReturning : 핵심 메서드가 정상 종료 후에 aop를 실행
+		afterThrowing : 핵심 메서드가 오류 종료 후에 aop를 실행 
+-->
+<aop:config>
+	<aop:pointcut expression="execution(public * spring.*Impl.*(..))"
+		id="servicepointcut"/>
+	<aop:aspect id="loggingAspect" ref="logging">
+	<!-- advice 설정 -->
+		<aop:around method="logging" pointcut-ref="servicepointcut"/>
+	</aop:aspect>
+</aop:config>
+</beans>
